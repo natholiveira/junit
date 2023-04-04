@@ -14,6 +14,8 @@ import com.dojo.junit.security.PasswordEnconder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UsuarioService {
 
@@ -78,6 +80,20 @@ public class UsuarioService {
         );
 
         emailService.enviarEmail(emailRequest);
+    }
+
+    public void enviarEmailsUsuariosNotasBaixas(Double nota) {
+        List<Usuario> usuarios = usuarioRepository.findAllByNota(nota);
+
+        usuarios.forEach(usuario -> {
+            EmailRequest emailRequest = new EmailRequest(
+                    usuario.getEmail(),
+                    "Email automático - Nota Baixa",
+                    "Ei usuário, aumente sua nota com as seguintes dicas: "
+            );
+
+            emailService.enviarEmail(emailRequest);
+        });
     }
 
 }

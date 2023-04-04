@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 public class PasswordEnconder {
 
     public String encriptarSenha(String senha){
+
         return "";
     }
 }
